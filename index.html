@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Factures Premium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Genera la teva Factura</h1>
+            <p>Eina professional per a autònoms i empreses</p>
+        </header>
+
+        <main class="card">
+            <form id="invoice-form">
+                <div class="form-section">
+                    <h3>Dades de la Factura</h3>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label for="num_factura">Número de Factura</label>
+                            <input type="text" id="num_factura" name="num_factura" placeholder="Ex: 2026-001" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="data">Data</label>
+                            <input type="date" id="data" name="data" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Emissor (Tu)</h3>
+                    <div class="input-group">
+                        <label for="emissor_nom">Nom o Empresa</label>
+                        <input type="text" id="emissor_nom" name="emissor_nom" placeholder="El Teu Nom" required>
+                    </div>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label for="emissor_nif">NIF/CIF</label>
+                            <input type="text" id="emissor_nif" name="emissor_nif" placeholder="12345678Z">
+                        </div>
+                        <div class="input-group">
+                            <label for="emissor_adreca">Adreça</label>
+                            <input type="text" id="emissor_adreca" name="emissor_adreca" placeholder="Carrer, Ciutat">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Client</h3>
+                    <div class="input-group">
+                        <label for="client_nom">Nom del Client</label>
+                        <input type="text" id="client_nom" name="client_nom" placeholder="Client S.A." required>
+                    </div>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label for="client_nif">NIF/CIF</label>
+                            <input type="text" id="client_nif" name="client_nif" placeholder="B12345678">
+                        </div>
+                        <div class="input-group">
+                            <label for="client_adreca">Adreça</label>
+                            <input type="text" id="client_adreca" name="client_adreca"
+                                placeholder="Avinguda Digital 123">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Concepte i Preu</h3>
+                    <div class="input-group">
+                        <label for="concepte">Descripció del servei</label>
+                        <textarea id="concepte" name="concepte" rows="2" placeholder="Serveis de consultoria..."
+                            required></textarea>
+                    </div>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label for="quantitat">Quantitat</label>
+                            <input type="number" id="quantitat" name="quantitat" value="1" min="1" step="0.5" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="preu_etiqueta">Etiqueta Preu</label>
+                            <input type="text" id="preu_etiqueta" name="preu_etiqueta" placeholder="Ex: Preu/hora">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="preu_unitari">Preu Unitari (€)</label>
+                        <input type="number" id="preu_unitari" name="preu_unitari" value="0.00" min="0" step="0.01"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Impostos</h3>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label for="iva_percentatge">IVA (%)</label>
+                            <div class="range-group">
+                                <input type="range" id="iva_percentatge" name="iva_percentatge" min="0" max="21"
+                                    value="21" step="1">
+                                <span class="value-badge" id="iva-val">21%</span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="irpf_percentatge">Retenció IRPF (%)</label>
+                            <div class="range-group">
+                                <input type="range" id="irpf_percentatge" name="irpf_percentatge" min="0" max="20"
+                                    value="15" step="1">
+                                <span class="value-badge" id="irpf-val">15%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="btn btn-primary" id="generate-pdf">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        Baixar Factura PDF
+                    </button>
+                </div>
+            </form>
+        </main>
+
+        <aside class="preview-container">
+            <div class="invoice-preview" id="invoice-render">
+                <div class="preview-header">
+                    <div class="preview-title">
+                        <h1>FACTURA</h1>
+                    </div>
+                    <div class="preview-details">
+                        <p><strong>Nº:</strong> <span id="prev-num"></span></p>
+                        <p><strong>Data:</strong> <span id="prev-data"></span></p>
+                    </div>
+                </div>
+
+                <div class="preview-addresses">
+                    <div class="address-block">
+                        <h4>Emissor</h4>
+                        <div class="address-content">
+                            <p><strong id="prev-emissor-nom"></strong></p>
+                            <p id="prev-emissor-nif"></p>
+                            <p id="prev-emissor-adreca"></p>
+                        </div>
+                    </div>
+                    <div class="address-block">
+                        <h4>Client</h4>
+                        <div class="address-content">
+                            <p><strong id="prev-client-nom"></strong></p>
+                            <p id="prev-client-nif"></p>
+                            <p id="prev-client-adreca"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="preview-table">
+                    <thead>
+                        <tr>
+                            <th>Descripció</th>
+                            <th>Quant.</th>
+                            <th id="prev-preu-etiqueta">Preu</th>
+                            <th style="text-align: right">Base</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="prev-concepte"></td>
+                            <td id="prev-quantitat"></td>
+                            <td id="prev-preu"></td>
+                            <td style="text-align: right" id="prev-base"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="preview-totals">
+                    <div class="total-row">
+                        <span>Base Imposable:</span>
+                        <span id="tot-base">0.00€</span>
+                    </div>
+                    <div class="total-row">
+                        <span>IVA (<span id="tot-iva-p">21</span>%):</span>
+                        <span id="tot-iva">0.00€</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Retenció IRPF (<span id="tot-irpf-p">15</span>%):</span>
+                        <span id="tot-irpf">0.00€</span>
+                    </div>
+                    <div class="total-row grand-total">
+                        <span>TOTAL:</span>
+                        <span id="tot-final">0.00€</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+</body>
+
+</html>
