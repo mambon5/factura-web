@@ -1,4 +1,4 @@
-import html2pdf from 'html2pdf.js';
+import { jsPDF } from 'jspdf';
 
 const form = document.getElementById('invoice-form');
 const inputs = form.querySelectorAll('input, textarea');
@@ -105,17 +105,128 @@ inputs.forEach(input => {
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     const dades = Object.fromEntries(new FormData(form));
-    const element = document.getElementById('invoice-render');
 
-    const opt = {
-        margin: 10,
-        filename: `factura_${dades.num_factura}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
+    // Càlculs per al PDF
+    const quantitat = parseFloat(dades.quantitat) || 0;
+    const preuUnitari = parseFloat(dades.preu_unitari) || 0;
+    const base = quantitat * preuUnitari;
+    const ivaP = parseInt(dades.iva_percentatge) || 0;
+    const irpfP = parseInt(dades.irpf_percentatge) || 0;
+    const ivaImport = base * (ivaP / 100);
+    const irpfImport = base * (irpfP / 100);
+    const total = base + ivaImport - irpfImport;
 
-    html2pdf().set(opt).from(element).save();
+    const doc = new jsPDF();
+    const margin = 20;
+    let y = 30;
+
+    // Capçalera
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(28);
+    doc.text("FACTURA", margin, y);
+    
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(100);
+    doc.text(`Nº: ${dades.num_factura}`, 190, y - 5, { align: "right" });
+    doc.text(`Data: ${dades.data}`, 190, y + 2, { align: "right" });
+
+    y += 20;
+    doc.setDrawColor(200);
+    doc.line(margin, y, 190, y);
+    y += 15;
+
+    // Blocs d'adreces
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(150);
+    doc.text("EMISSOR", margin, y);
+    doc.text("CLIENT", 110, y);
+    
+    y += 7;
+    doc.setTextColor(0);
+    doc.setFontSize(11);
+    doc.text(dades.emissor_nom, margin, y);
+    doc.text(dades.client_nom, 110, y);
+    
+    y += 6;
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text(dades.emissor_nif ? `NIF: ${dades.emissor_nif}` : "", margin, y);
+    doc.text(dades.client_nif ? `NIF: ${dades.client_nif}` : "", 110, y);
+    
+    y += 5;
+    doc.setFontSize(9);
+    doc.setTextColor(80);
+    doc.text(dades.emissor_adreca || "", margin, y, { maxWidth: 80 });
+    doc.text(dades.client_adreca || "", 110, y, { maxWidth: 80 });
+
+    y += 25;
+
+    // Taula
+    doc.setDrawColor(0);
+    doc.setLineWidth(0.5);
+    doc.line(margin, y, 190, y);
+    y += 7;
+    
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.setTextColor(100);
+    doc.text("DESCRIPCIÓ", margin, y);
+    doc.text("QUANT.", 110, y, { align: "right" });
+    doc.text(dades.preu_etiqueta.toUpperCase(), 145, y, { align: "right" });
+    doc.text("BASE", 190, y, { align: "right" });
+    
+    y += 4;
+    doc.line(margin, y, 190, y);
+    y += 10;
+    
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(0);
+    
+    // Concepte multilínia
+    const splitConcepte = doc.splitTextToSize(dades.concepte, 80);
+    doc.text(splitConcepte, margin, y);
+    
+    doc.text(quantitat.toString(), 110, y, { align: "right" });
+    doc.text(`${preuUnitari.toFixed(2)}€`, 145, y, { align: "right" });
+    doc.text(`${base.toFixed(2)}€`, 190, y, { align: "right" });
+    
+    y += (splitConcepte.length * 5) + 10;
+    doc.setDrawColor(230);
+    doc.line(margin, y, 190, y);
+    y += 15;
+
+    // Totals
+    const totalX = 140;
+    doc.setFontSize(10);
+    doc.setTextColor(80);
+    
+    doc.text("Base Imposable:", totalX, y);
+    doc.text(`${base.toFixed(2)}€`, 190, y, { align: "right" });
+    
+    y += 7;
+    doc.text(`IVA (${ivaP}%):`, totalX, y);
+    doc.text(`+${ivaImport.toFixed(2)}€`, 190, y, { align: "right" });
+    
+    y += 7;
+    doc.text(`Retenció IRPF (${irpfP}%):`, totalX, y);
+    doc.text(`-${irpfImport.toFixed(2)}€`, 190, y, { align: "right" });
+    
+    y += 10;
+    doc.setDrawColor(0);
+    doc.setLineWidth(1);
+    doc.line(totalX, y, 190, y);
+    
+    y += 10;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.setTextColor(37, 99, 235); // Blau primari
+    doc.text("TOTAL:", totalX, y);
+    doc.text(`${total.toFixed(2)}€`, 190, y, { align: "right" });
+
+    doc.save(`factura_${dades.num_factura}.pdf`);
 });
 
 // Run initial preview
