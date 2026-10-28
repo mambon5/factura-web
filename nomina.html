@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Nòmines - Empleats de Llar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <nav style="max-width: 800px; margin: 20px auto 0 auto; display: flex; gap: 10px; padding: 0 20px;">
+        <a href="index.html" class="btn"
+            style="background-color: #e5e7eb; color: rgb(26, 4, 4); text-decoration: none; padding: 8px 16px; border-radius: 6px; font-weight: 600;">Factures</a>
+        <a href="nomina.html" class="btn"
+            style="background-color: #2563eb; color: #ffffff; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-weight: 600;">Nòmines</a>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>Genera la Nòmina</h1>
+            <p>Règim Especial d'Empleades de la Llar</p>
+        </header>
+
+        <main class="card" style="grid-column: span 2;">
+            <form id="nomina-form">
+
+                <!-- Període -->
+                <div class="form-section">
+                    <h3>Dades del Període</h3>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label for="periodo">Període de Liquidació</label>
+                            <input type="text" id="periodo" name="periodo" value="octubre de 2026" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="dies_hores">Jornada / Hores</label>
+                            <input type="text" id="dies_hores" name="dies_hores" value="25 horas semanales" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empleador -->
+                <div class="form-section">
+                    <h3>Empleador/a</h3>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label for="emp_nom">Nom</label>
+                            <input type="text" id="emp_nom" name="emp_nom" value="Sofia" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="emp_cif">NIF / CIF</label>
+                            <input type="text" id="emp_cif" name="emp_cif" value="123123">
+                        </div>
+                    </div>
+                    <div class="grid-3" style="margin-top: 15px;">
+                        <div class="input-group">
+                            <label for="emp_adreca">Domicilio</label>
+                            <input type="text" id="emp_adreca" name="emp_adreca" value="carrer santa madrona">
+                        </div>
+                        <div class="input-group">
+                            <label for="emp_poblacion">Población</label>
+                            <input type="text" id="emp_poblacion" name="emp_poblacion" value="08022">
+                        </div>
+                        <div class="input-group">
+                            <label for="emp_ccc">CCC</label>
+                            <input type="text" id="emp_ccc" name="emp_ccc" value="123123">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Treballador/a -->
+                <div class="form-section">
+                    <h3>Treballador/a</h3>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label for="trab_nom">Nom</label>
+                            <input type="text" id="trab_nom" name="trab_nom" value="Sofia" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="trab_nif">NIF</label>
+                            <input type="text" id="trab_nif" name="trab_nif" value="123123123d">
+                        </div>
+                    </div>
+                    <div class="grid-3" style="margin-top: 15px;">
+                        <div class="input-group">
+                            <label for="trab_ss">N.º S. Social</label>
+                            <input type="text" id="trab_ss" name="trab_ss" value="1231231">
+                        </div>
+                        <div class="input-group">
+                            <label for="trab_cat">Categoría</label>
+                            <input type="text" id="trab_cat" name="trab_cat" value="Empleada de hogar">
+                        </div>
+                        <div class="input-group">
+                            <label for="trab_antiguedad">Antigüedad</label>
+                            <input type="text" id="trab_antiguedad" name="trab_antiguedad" value="12/09/2026">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Devengos -->
+                <div class="form-section">
+                    <h3>I. Devengos</h3>
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label for="salario_base">Salario base (€)</label>
+                            <input type="number" id="salario_base" name="salario_base" value="763.13" step="0.01"
+                                required>
+                        </div>
+                        <div class="input-group">
+                            <label for="complementos">Complementos salariales (€)</label>
+                            <input type="number" id="complementos" name="complementos" value="12.00" step="0.01">
+                        </div>
+                    </div>
+                    <div class="grid-2" style="margin-top: 15px;">
+                        <div class="input-group">
+                            <label for="paga_extra_junio">Paga extra de junio (prorrata) (€)</label>
+                            <input type="number" id="paga_extra_junio" name="paga_extra_junio" value="63.59"
+                                step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label for="paga_extra_dic">Paga extra de diciembre (prorrata) (€)</label>
+                            <input type="number" id="paga_extra_dic" name="paga_extra_dic" value="63.59" step="0.01">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="btn btn-primary" id="generate-pdf">
+                        Baixar Nòmina PDF
+                    </button>
+                </div>
+            </form>
+        </main>
+
+        <!-- Vista prèvia web -->
+        <aside class="preview-container" style="margin-top: 30px;">
+            <div class="invoice-preview"
+                style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                <h2 style="font-size: 16px; margin-bottom: 15px; color: #1e293b;">VISTA PRÈVIA DE LA NÒMINA</h2>
+                <hr style="border: 0; border-top: 1px solid #e2e8f0; margin-bottom: 15px;">
+
+                <p><strong>Període:</strong> <span id="prev-periodo">-</span> · <span id="prev-dies">-</span></p>
+
+                <div style="display: flex; gap: 20px; margin-top: 15px; font-size: 13px;">
+                    <div style="flex: 1; border: 1px solid #cbd5e1; padding: 10px; border-radius: 4px;">
+                        <strong>Empleador/a:</strong> <span id="prev-emp-nom">-</span><br>
+                        NIF: <span id="prev-emp-cif">-</span><br>
+                        Domicilio: <span id="prev-emp-dom">-</span><br>
+                        Población: <span id="prev-emp-pob">-</span><br>
+                        CCC: <span id="prev-emp-ccc">-</span>
+                    </div>
+                    <div style="flex: 1; border: 1px solid #cbd5e1; padding: 10px; border-radius: 4px;">
+                        <strong>Trabajador/a:</strong> <span id="prev-trab-nom">-</span><br>
+                        NIF: <span id="prev-trab-nif">-</span><br>
+                        N.º S. Social: <span id="prev-trab-ss">-</span><br>
+                        Categoría: <span id="prev-trab-cat">-</span><br>
+                        Antigüedad: <span id="prev-trab-ant">-</span>
+                    </div>
+                </div>
+
+                <h4 style="margin-top: 20px; font-size: 14px;">I. Devengos</h4>
+                <p>Total devengado: <span id="prev-tot-dev" style="font-weight: bold;">0.00€</span></p>
+
+                <h4 style="margin-top: 15px; font-size: 14px;">II. Deducciones (Trabajadora S.S.)</h4>
+                <p>Total a deducir: <span id="prev-tot-ded" style="font-weight: bold;">0.00€</span></p>
+
+                <h4 style="margin-top: 15px; font-size: 14px; color: #2563eb;">Líquido total a percibir (A − B): <span
+                        id="prev-liquid">0.00€</span></h4>
+            </div>
+        </aside>
+    </div>
+
+    <script type="module" src="./nomina.js"></script>
+</body>
+
+</html>

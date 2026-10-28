@@ -1,0 +1,15 @@
+{
+    "empleador": {
+        "nom": "Montserrat Padrós Mangot",
+        "cif": "12345678Z",
+        "adreça": "Carrer Major 123, Barcelona",
+        "ccc": "08/1234567/89"
+    },
+    "treballadora": {
+        "nom": "Nom de la Treballadora",
+        "nif": "87654321Y",
+        "num_ss": "08/11111111/22",
+        "categoria": "Empleada de llar",
+        "antiguedad": "2026-10-21"
+    }
+}
