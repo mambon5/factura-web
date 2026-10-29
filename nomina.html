@@ -112,17 +112,20 @@
                         </div>
                         <div class="input-group">
                             <label for="complementos">Complementos salariales (€)</label>
+                            <!-- AFEGIT NAME -->
                             <input type="number" id="complementos" name="complementos" value="12.00" step="0.01">
                         </div>
                     </div>
                     <div class="grid-2" style="margin-top: 15px;">
                         <div class="input-group">
                             <label for="paga_extra_junio">Paga extra de junio (prorrata) (€)</label>
+                            <!-- AFEGIT NAME -->
                             <input type="number" id="paga_extra_junio" name="paga_extra_junio" value="63.59"
                                 step="0.01">
                         </div>
                         <div class="input-group">
                             <label for="paga_extra_dic">Paga extra de diciembre (prorrata) (€)</label>
+                            <!-- AFEGIT NAME -->
                             <input type="number" id="paga_extra_dic" name="paga_extra_dic" value="63.59" step="0.01">
                         </div>
                     </div>
@@ -136,16 +139,17 @@
             </form>
         </main>
 
-        <!-- Vista prèvia web -->
+        <!-- Vista prèvia web detallada -->
         <aside class="preview-container" style="margin-top: 30px;">
             <div class="invoice-preview"
-                style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); font-size: 13px;">
                 <h2 style="font-size: 16px; margin-bottom: 15px; color: #1e293b;">VISTA PRÈVIA DE LA NÒMINA</h2>
                 <hr style="border: 0; border-top: 1px solid #e2e8f0; margin-bottom: 15px;">
 
                 <p><strong>Període:</strong> <span id="prev-periodo">-</span> · <span id="prev-dies">-</span></p>
 
-                <div style="display: flex; gap: 20px; margin-top: 15px; font-size: 13px;">
+                <!-- Dades Empresa / Treballador -->
+                <div style="display: flex; gap: 20px; margin-top: 15px;">
                     <div style="flex: 1; border: 1px solid #cbd5e1; padding: 10px; border-radius: 4px;">
                         <strong>Empleador/a:</strong> <span id="prev-emp-nom">-</span><br>
                         NIF: <span id="prev-emp-cif">-</span><br>
@@ -162,14 +166,59 @@
                     </div>
                 </div>
 
-                <h4 style="margin-top: 20px; font-size: 14px;">I. Devengos</h4>
-                <p>Total devengado: <span id="prev-tot-dev" style="font-weight: bold;">0.00€</span></p>
+                <!-- I. Devengos -->
+                <h4 style="margin-top: 20px; font-size: 14px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">I.
+                    Devengos</h4>
+                <div style="display: flex; justify-content: space-between; margin-top: 5px;"><span>Salario base:</span>
+                    <span id="prev-sal-base">0.00 €</span></div>
+                <div style="display: flex; justify-content: space-between; margin-top: 3px;"><span>Complementos
+                        salariales:</span> <span id="prev-complementos">0.00 €</span></div>
+                <div style="display: flex; justify-content: space-between; margin-top: 3px;"><span>Paga extra junio
+                        (prorrata):</span> <span id="prev-extra-jun">0.00 €</span></div>
+                <div style="display: flex; justify-content: space-between; margin-top: 3px;"><span>Paga extra dic
+                        (prorrata):</span> <span id="prev-extra-dic">0.00 €</span></div>
+                <div
+                    style="display: flex; justify-content: space-between; margin-top: 8px; font-weight: bold; border-top: 1px dashed #cbd5f1; padding-top: 4px;">
+                    <span>A. Total devengado:</span> <span id="prev-tot-dev">0.00 €</span>
+                </div>
 
-                <h4 style="margin-top: 15px; font-size: 14px;">II. Deducciones (Trabajadora S.S.)</h4>
-                <p>Total a deducir: <span id="prev-tot-ded" style="font-weight: bold;">0.00€</span></p>
+                <!-- II. Deduccions -->
+                <h4 style="margin-top: 20px; font-size: 14px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">
+                    II. Deducciones (Treballadora S.S.)</h4>
+                <div style="display: flex; justify-content: space-between; margin-top: 5px;"><span>Contingencias Comunes
+                        (4,7%):</span> <span id="prev-ded-cc">0.00 €</span></div>
+                <div style="display: flex; justify-content: space-between; margin-top: 3px;"><span>MEI (0,15%):</span>
+                    <span id="prev-ded-mei">0.00 €</span></div>
+                <div style="display: flex; justify-content: space-between; margin-top: 3px;"><span>Desempleo
+                        (1,55%):</span> <span id="prev-ded-des">0.00 €</span></div>
+                <div
+                    style="display: flex; justify-content: space-between; margin-top: 8px; font-weight: bold; border-top: 1px dashed #cbd5f1; padding-top: 4px;">
+                    <span>B. Total a deducir:</span> <span id="prev-tot-ded">0.00 €</span>
+                </div>
 
-                <h4 style="margin-top: 15px; font-size: 14px; color: #2563eb;">Líquido total a percibir (A − B): <span
-                        id="prev-liquid">0.00€</span></h4>
+                <!-- Líquid -->
+                <div
+                    style="margin-top: 15px; padding: 10px; background-color: #eff6ff; border-radius: 4px; display: flex; justify-content: space-between; font-weight: bold; color: #2563eb; font-size: 14px;">
+                    <span>Líquido total a percibir (A − B):</span> <span id="prev-liquid">0.00 €</span>
+                </div>
+
+                <!-- Aportació Empresari -->
+                <h4 style="margin-top: 20px; font-size: 14px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">
+                    Aportación Empresari/a (Seguretat Social)</h4>
+                <div style="display: flex; justify-content: space-between; margin-top: 5px;"><span>Contingencias comunes
+                        (18,88% ef.):</span> <span id="prev-emp-cc">0.00 €</span></div>
+                <div style="display: flex; justify-content: space-between; margin-top: 3px;"><span>MEI (0,75%):</span>
+                    <span id="prev-emp-mei">0.00 €</span></div>
+                <div style="display: flex; justify-content: space-between; margin-top: 3px;"><span>Contingencias
+                        profesionales (1,5%):</span> <span id="prev-emp-prof">0.00 €</span></div>
+                <div style="display: flex; justify-content: space-between; margin-top: 3px;"><span>Desempleo (1,10%
+                        ef.):</span> <span id="prev-emp-des">0.00 €</span></div>
+                <div style="display: flex; justify-content: space-between; margin-top: 3px;"><span>FOGASA (0,04%
+                        ef.):</span> <span id="prev-emp-fogasa">0.00 €</span></div>
+                <div
+                    style="display: flex; justify-content: space-between; margin-top: 8px; font-weight: bold; border-top: 1px dashed #cbd5f1; padding-top: 4px;">
+                    <span>Total a cargo del empleador/a:</span> <span id="prev-tot-emp">0.00 €</span>
+                </div>
             </div>
         </aside>
     </div>
