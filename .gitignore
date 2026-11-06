@@ -4,3 +4,8 @@ node_modules/
 dist/
 dist-ssr/
 *.local
+
+# Fitxers d'entorn (dades privades)
+.env
+.env.*
+!.env.example

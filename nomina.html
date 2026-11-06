@@ -129,6 +129,14 @@
                             <input type="number" id="paga_extra_dic" name="paga_extra_dic" value="63.59" step="0.01">
                         </div>
                     </div>
+                    <div class="grid-2" style="margin-top: 15px;">
+                        <div class="input-group">
+                            <label for="base_ss">Base de cotització SS (€)</label>
+                            <input type="number" id="base_ss" name="base_ss" value="970.00" step="0.01">
+                            <small style="color: #64748b; font-size: 11px;">Tram de cotització aplicat (per defecte 970
+                                €/mes)</small>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="actions">
@@ -140,7 +148,7 @@
         </main>
 
         <!-- Vista prèvia web detallada -->
-        <aside class="preview-container" style="margin-top: 30px;">
+        <aside class="preview-container" style="grid-column: span 2; margin-top: 30px;">
             <div class="invoice-preview"
                 style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); font-size: 13px;">
                 <h2 style="font-size: 16px; margin-bottom: 15px; color: #1e293b;">VISTA PRÈVIA DE LA NÒMINA</h2>
@@ -170,7 +178,8 @@
                 <h4 style="margin-top: 20px; font-size: 14px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">I.
                     Devengos</h4>
                 <div style="display: flex; justify-content: space-between; margin-top: 5px;"><span>Salario base:</span>
-                    <span id="prev-sal-base">0.00 €</span></div>
+                    <span id="prev-sal-base">0.00 €</span>
+                </div>
                 <div style="display: flex; justify-content: space-between; margin-top: 3px;"><span>Complementos
                         salariales:</span> <span id="prev-complementos">0.00 €</span></div>
                 <div style="display: flex; justify-content: space-between; margin-top: 3px;"><span>Paga extra junio
@@ -188,7 +197,8 @@
                 <div style="display: flex; justify-content: space-between; margin-top: 5px;"><span>Contingencias Comunes
                         (4,7%):</span> <span id="prev-ded-cc">0.00 €</span></div>
                 <div style="display: flex; justify-content: space-between; margin-top: 3px;"><span>MEI (0,15%):</span>
-                    <span id="prev-ded-mei">0.00 €</span></div>
+                    <span id="prev-ded-mei">0.00 €</span>
+                </div>
                 <div style="display: flex; justify-content: space-between; margin-top: 3px;"><span>Desempleo
                         (1,55%):</span> <span id="prev-ded-des">0.00 €</span></div>
                 <div
@@ -196,28 +206,167 @@
                     <span>B. Total a deducir:</span> <span id="prev-tot-ded">0.00 €</span>
                 </div>
 
-                <!-- Líquid -->
+                <!-- Líquid Treballadora -->
                 <div
-                    style="margin-top: 15px; padding: 10px; background-color: #eff6ff; border-radius: 4px; display: flex; justify-content: space-between; font-weight: bold; color: #2563eb; font-size: 14px;">
-                    <span>Líquido total a percibir (A − B):</span> <span id="prev-liquid">0.00 €</span>
+                    style="margin-top: 15px; padding: 12px; background-color: #eff6ff; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; color: #2563eb; font-size: 15px;">
+                    <span>Líquido total a percibir (A - B):</span> <span id="prev-liquid">0.00 €</span>
                 </div>
 
-                <!-- Aportació Empresari -->
-                <h4 style="margin-top: 20px; font-size: 14px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">
-                    Aportación Empresari/a (Seguretat Social)</h4>
-                <div style="display: flex; justify-content: space-between; margin-top: 5px;"><span>Contingencias comunes
-                        (18,88% ef.):</span> <span id="prev-emp-cc">0.00 €</span></div>
-                <div style="display: flex; justify-content: space-between; margin-top: 3px;"><span>MEI (0,75%):</span>
-                    <span id="prev-emp-mei">0.00 €</span></div>
-                <div style="display: flex; justify-content: space-between; margin-top: 3px;"><span>Contingencias
-                        profesionales (1,5%):</span> <span id="prev-emp-prof">0.00 €</span></div>
-                <div style="display: flex; justify-content: space-between; margin-top: 3px;"><span>Desempleo (1,10%
-                        ef.):</span> <span id="prev-emp-des">0.00 €</span></div>
-                <div style="display: flex; justify-content: space-between; margin-top: 3px;"><span>FOGASA (0,04%
-                        ef.):</span> <span id="prev-emp-fogasa">0.00 €</span></div>
+                <!-- SECCIÓ DESTACADA: DETALL SEGURETAT SOCIAL (ÀVIA) -->
                 <div
-                    style="display: flex; justify-content: space-between; margin-top: 8px; font-weight: bold; border-top: 1px dashed #cbd5f1; padding-top: 4px;">
-                    <span>Total a cargo del empleador/a:</span> <span id="prev-tot-emp">0.00 €</span>
+                    style="margin-top: 25px; padding: 20px; background-color: #f8fafc; border: 2px solid #e2e8f0; border-radius: 8px;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
+                        <div>
+                            <span
+                                style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: #64748b; letter-spacing: 0.05em;">Càrrec
+                                Mensual al Banc de l'Àvia</span>
+                            <h3 style="margin: 2px 0 0 0; font-size: 20px; color: #0f172a;">Cuota de la Seguridad Social
+                            </h3>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 24px; font-weight: 800; color: #16a34a;"
+                                id="prev-ss-total-pagar-avia">278,12 €/mes</div>
+                            <div style="font-size: 12px; color: #64748b; text-decoration: line-through;"
+                                id="prev-ss-cuota-completa">368,13 €/mes (sense descompte)</div>
+                        </div>
+                    </div>
+
+                    <div
+                        style="margin-top: 10px; padding: 8px 12px; background-color: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 6px; font-size: 12px; color: #065f46;">
+                        <strong>Bonificacions aplicades:</strong> <span id="prev-ss-descuento-total">-90,01 €/mes
+                            d'estalvi</span>
+                        (20% de descompte a la quota comuna i 80% a desocupació i FOGASA).
+                    </div>
+
+                    <p style="margin-top: 10px; font-size: 12px; color: #64748b;">
+                        Aquesta quota correspon a una base de cotització de: <strong id="prev-ss-base">970,00
+                            €/mes</strong>
+                    </p>
+
+                    <!-- Detall Cuota Empleador vs Trabajador -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 18px;">
+                        <!-- Columna Cuota Empleador -->
+                        <div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #cbd5e1;">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; margin-bottom: 10px;">
+                                <strong style="color: #1e293b; font-size: 13px;">Cuota del empleador (Àvia)</strong>
+                                <span style="font-weight: 700; color: #2563eb;" id="prev-emp-tot-pagar">216,03 €</span>
+                            </div>
+
+                            <div style="margin-bottom: 8px;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Contingencias comunes</span>
+                                    <strong id="prev-emp-cc-pagar">183,14 €</strong>
+                                </div>
+                                <small style="color: #64748b; font-size: 11px; display: block;">Enfermedad, accidente no
+                                    laboral, jubilación, etc. (brut: <span id="prev-emp-cc-brut">228,92
+                                        €</span>)</small>
+                            </div>
+
+                            <div style="margin-bottom: 8px;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Contingencias profesionales</span>
+                                    <strong id="prev-emp-prof">14,55 €</strong>
+                                </div>
+                                <small style="color: #64748b; font-size: 11px; display: block;">Accidentes y
+                                    enfermedades laborales.</small>
+                            </div>
+
+                            <div style="margin-bottom: 8px;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Desempleo</span>
+                                    <strong id="prev-emp-des-pagar">10,67 €</strong>
+                                </div>
+                                <small style="color: #64748b; font-size: 11px; display: block;">Amb 80% descompte (brut:
+                                    <span id="prev-emp-des-brut">53,35 €</span>)</small>
+                            </div>
+
+                            <div style="margin-bottom: 8px;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Mecanismo de Equidad (MEI)</span>
+                                    <strong id="prev-emp-mei">7,28 €</strong>
+                                </div>
+                                <small style="color: #64748b; font-size: 11px; display: block;">Aportació solidària
+                                    intergeneracional (0,75%)</small>
+                            </div>
+
+                            <div style="margin-bottom: 8px;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Fondo de Garantía Salarial</span>
+                                    <strong id="prev-emp-fogasa-pagar">0,39 €</strong>
+                                </div>
+                                <small style="color: #64748b; font-size: 11px; display: block;">Amb 80% descompte (brut:
+                                    <span id="prev-emp-fogasa-brut">1,94 €</span>)</small>
+                            </div>
+
+                            <div
+                                style="border-top: 1px dashed #cbd5e1; margin-top: 8px; padding-top: 6px; display: flex; justify-content: space-between; font-size: 12px; color: #64748b;">
+                                <span>Total cuota empleador sense bonif.:</span>
+                                <span id="prev-emp-tot-brut">306,04 €</span>
+                            </div>
+                        </div>
+
+                        <!-- Columna Cuota Trabajador -->
+                        <div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #cbd5e1;">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; margin-bottom: 10px;">
+                                <strong style="color: #1e293b; font-size: 13px;">Cuota del trabajador</strong>
+                                <span style="font-weight: 700; color: #dc2626;" id="prev-trab-tot">62,09 €</span>
+                            </div>
+
+                            <div style="margin-bottom: 8px;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Contingencias comunes</span>
+                                    <strong id="prev-trab-cc">45,59 €</strong>
+                                </div>
+                                <small style="color: #64748b; font-size: 11px; display: block;">Enfermedad, accidente no
+                                    laboral, jubilación, etc. (4,70%)</small>
+                            </div>
+
+                            <div style="margin-bottom: 8px;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Desempleo</span>
+                                    <strong id="prev-trab-des">15,04 €</strong>
+                                </div>
+                                <small style="color: #64748b; font-size: 11px; display: block;">Cotització per atur
+                                    treballadora (1,55%)</small>
+                            </div>
+
+                            <div style="margin-bottom: 8px;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>Mecanismo de Equidad (MEI)</span>
+                                    <strong id="prev-trab-mei">1,46 €</strong>
+                                </div>
+                                <small style="color: #64748b; font-size: 11px; display: block;">Aportació solidària
+                                    intergeneracional (0,15%)</small>
+                            </div>
+
+                            <div
+                                style="margin-top: 25px; padding: 10px; background-color: #f1f5f9; border-radius: 4px; font-size: 11px; color: #475569;">
+                                ℹ️ Aquests <strong>62,09 €</strong> es retenen del salari brut de la treballadora i
+                                l'àvia els ingressa a la Seguretat Social dins del rebut unificat de <strong>278,12
+                                    €</strong>.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resum Cost Total Mensual per a l'Àvia -->
+                    <div
+                        style="margin-top: 15px; padding: 12px 16px; background-color: #1e293b; color: white; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                        <div>
+                            <span
+                                style="font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 600; display: block;">Despesa
+                                Mensual Total per a l'Àvia</span>
+                            <span style="font-size: 13px; color: #cbd5e1;">Salari Líquid (<span
+                                    id="prev-resum-liquid">840,22 €</span>) + Rebut Seguretat Social (<span
+                                    id="prev-resum-rebut-ss">278,12 €</span>)</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <span style="font-size: 20px; font-weight: 800; color: #38bdf8;"
+                                id="prev-cost-total-avia">1.118,34 €/mes</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </aside>
