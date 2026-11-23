@@ -407,22 +407,25 @@ if (form) {
         doc.rect(margin, y, 183, 20, "FD");
 
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(8);
-        doc.setTextColor(30, 58, 138);
-        doc.text("LIQUIDACIÓN SEGURIDAD SOCIAL — CARGO EN CUENTA BANCARIA DE LA EMPLEADORA", margin + 3, y + 5);
-
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(7);
-        doc.setTextColor(51, 65, 85);
-        doc.text(`Cuota empleador/a (bonificada): ${res.totalEmpresari.toFixed(2)} €  +  Cuota trabajadora (retenida): ${res.totalDeducir.toFixed(2)} €`, margin + 3, y + 10);
-        doc.text(`Cuota íntegra sin descuento: ${res.cuotaCompletaSinDescuento.toFixed(2)} €  ·  Ahorro bonificaciones: -${res.totalDescuento.toFixed(2)} €  ·  Base: ${res.baseSS.toFixed(2)} €`, margin + 3, y + 14);
-
-        doc.setFont("helvetica", "bold");
         doc.setFontSize(8.5);
         doc.setTextColor(22, 101, 52);
         doc.text(`TOTAL A PAGAR: ${res.totalPagarSegSocialAvia.toFixed(2)} €/mes`, margin + 180, y + 11, { align: "right" });
 
-        y += 26;
+        // ---> AQUÍ VA LA LÍNIA RESUM <---
+        y += 24;
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(8);
+        doc.setTextColor(15, 23, 42);
+        doc.text(
+            `Coste total mensual empleador/a (Líquido ${res.liquido.toFixed(2)} € + S. Social ${res.totalPagarSegSocialAvia.toFixed(2)} €):`,
+            margin,
+            y
+        );
+        doc.setTextColor(3, 105, 161);
+        doc.text(`${res.costTotalRealAvia.toFixed(2)} €/mes`, 195, y, { align: "right" });
+
+        // ---> SIGNATURES I DATA <---
+        y += 8;
         doc.setFontSize(7.5);
         doc.setTextColor(100);
         doc.text("Firma del empleador/a", margin, y);
