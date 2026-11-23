@@ -73,47 +73,45 @@ function calcularTotals() {
 
     const totalDevengado = round2(salarioBase + complementos + extraJunio + extraDic);
 
-    // Base de cotització (des del formulari o mínim 970.00 €)
+    // Base de cotització: si s'indica al formulari s'utilitza aquesta; sinó, el total devengat
     const baseInput = parseFloat(formData.get('base_ss'));
     const baseSS = (!isNaN(baseInput) && baseInput > 0)
-        ? baseInput
-        : (totalDevengado <= 970 ? 970.00 : totalDevengado);
+        ? round2(baseInput)
+        : totalDevengado;
 
-    // --- Deduccions treballadora ---
-    const dedCC = round2(baseSS * 0.047);   // 4,7% = 45,59 €
-    const dedDes = round2(baseSS * 0.0155); // 1,55% = 15,04 €
-    const dedMEI = round2(baseSS * 0.0015); // 0,15% = 1,46 €
-    const totalDeducir = round2(dedCC + dedDes + dedMEI); // 62,09 €
+    // --- Deduccions treballadora (6,40 % total sobre baseSS) ---
+    const dedCC = round2(baseSS * 0.047);
+    const dedDes = round2(baseSS * 0.0155);
+    const dedMEI = round2(baseSS * 0.0015);
+    const totalDeducir = round2(dedCC + dedDes + dedMEI);
     const liquido = round2(totalDevengado - totalDeducir);
 
     // --- Quota Empleador/a sense bonificacions ---
-    const empCC_brut = round2(baseSS * 0.236);    // 23,60% = 228,92 €
-    const empProf = round2(baseSS * 0.015);       // 1,50% = 14,55 €
-    const empDes_brut = round2(baseSS * 0.055);   // 5,50% = 53,35 €
-    const empMEI = round2(baseSS * 0.0075);       // 0,75% = 7,28 €
-    const empFogasa_brut = round2(baseSS * 0.002); // 0,20% = 1,94 €
-    const empTotalBrut = round2(empCC_brut + empProf + empDes_brut + empMEI + empFogasa_brut); // 306,04 €
+    const empCC_brut = round2(baseSS * 0.236);
+    const empProf = round2(baseSS * 0.015);
+    const empDes_brut = round2(baseSS * 0.055);
+    const empMEI = round2(baseSS * 0.0075);
+    const empFogasa_brut = round2(baseSS * 0.002);
+    const empTotalBrut = round2(empCC_brut + empProf + empDes_brut + empMEI + empFogasa_brut);
 
     // --- Bonificacions / Descomptes Empleador/a ---
-    const bonCC = round2(empCC_brut * 0.20);         // 20% descompte en CC = 45,78 €
-    const bonDes = round2(empDes_brut * 0.80);       // 80% descompte desocupació = 42,68 €
-    const bonFogasa = round2(empFogasa_brut * 0.80); // 80% descompte FOGASA = 1,55 €
-    const totalDescuento = round2(bonCC + bonDes + bonFogasa); // 90,01 €
+    // Nota: revisa amb la resolució de la TGSS si apliquen només el 20% en CC o també desocupació/FOGASA
+    const bonCC = round2(empCC_brut * 0.20);
+    const bonDes = round2(empDes_brut * 0.80);
+    const bonFogasa = round2(empFogasa_brut * 0.80);
+    const totalDescuento = round2(bonCC + bonDes + bonFogasa);
 
-    // --- Quota Empleador/a a pagar (bonificada) ---
-    const empCC_pagar = round2(empCC_brut - bonCC);         // 183,14 €
-    const empProf_pagar = empProf;                           // 14,55 €
-    const empDes_pagar = round2(empDes_brut - bonDes);       // 10,67 €
-    const empMEI_pagar = empMEI;                             // 7,28 €
-    const empFogasa_pagar = round2(empFogasa_brut - bonFogasa); // 0,39 €
-    const totalEmpresari = round2(empCC_pagar + empProf_pagar + empDes_pagar + empMEI_pagar + empFogasa_pagar); // 216,03 €
+    // --- Quota Empleador/a a pagar ---
+    const empCC_pagar = round2(empCC_brut - bonCC);
+    const empProf_pagar = empProf;
+    const empDes_pagar = round2(empDes_brut - bonDes);
+    const empMEI_pagar = empMEI;
+    const empFogasa_pagar = round2(empFogasa_brut - bonFogasa);
+    const totalEmpresari = round2(empCC_pagar + empProf_pagar + empDes_pagar + empMEI_pagar + empFogasa_pagar);
 
-    // --- Totals Seguretat Social (Àvia) ---
-    // Quota completa sense descompte = 306,04 € + 62,09 € = 368,13 €
+    // --- Totals Seguretat Social ---
     const cuotaCompletaSinDescuento = round2(empTotalBrut + totalDeducir);
-    // Total rebut a pagar mensualment per l'àvia al banc = 216,03 € + 62,09 € = 278,12 €
     const totalPagarSegSocialAvia = round2(totalEmpresari + totalDeducir);
-    // Cost total mensual per a l'àvia = Salari líquid + Rebut Seguretat Social
     const costTotalRealAvia = round2(liquido + totalPagarSegSocialAvia);
 
     return {
@@ -129,11 +127,18 @@ function calcularTotals() {
     };
 }
 
+function obtenirDataActual() {
+    const avui = new Date();
+    const dia = String(avui.getDate()).padStart(2, '0');
+    const mes = String(avui.getMonth() + 1).padStart(2, '0');
+    const any = avui.getFullYear();
+    return `${dia}/${mes}/${any}`;
+}
+
 function updatePreview() {
     const formData = new FormData(form);
     const res = calcularTotals();
 
-    // Dades generals
     if (preview.periodo) preview.periodo.innerText = formData.get('periodo') || '-';
     if (preview.dies) preview.dies.innerText = formData.get('dies_hores') || '-';
     if (preview.empNom) preview.empNom.innerText = formData.get('emp_nom') || '-';
@@ -148,27 +153,23 @@ function updatePreview() {
     if (preview.trabCat) preview.trabCat.innerText = formData.get('trab_cat') || '-';
     if (preview.trabAnt) preview.trabAnt.innerText = formData.get('trab_antiguedad') || '-';
 
-    // Devengos detallats
     if (preview.salBase) preview.salBase.innerText = `${res.salarioBase.toFixed(2)} €`;
     if (preview.complementos) preview.complementos.innerText = `${res.complementos.toFixed(2)} €`;
     if (preview.extraJun) preview.extraJun.innerText = `${res.extraJunio.toFixed(2)} €`;
     if (preview.extraDic) preview.extraDic.innerText = `${res.extraDic.toFixed(2)} €`;
     if (preview.totDev) preview.totDev.innerText = `${res.totalDevengado.toFixed(2)} €`;
 
-    // Deduccions detallades treballadora
     if (preview.dedCC) preview.dedCC.innerText = `-${res.dedCC.toFixed(2)} €`;
     if (preview.dedMEI) preview.dedMEI.innerText = `-${res.dedMEI.toFixed(2)} €`;
     if (preview.dedDes) preview.dedDes.innerText = `-${res.dedDes.toFixed(2)} €`;
     if (preview.totDed) preview.totDed.innerText = `-${res.totalDeducir.toFixed(2)} €`;
     if (preview.liquid) preview.liquid.innerText = `${res.liquido.toFixed(2)} €`;
 
-    // Seguretat Social - Totals Càrrec Àvia
     if (preview.ssTotalPagarAvia) preview.ssTotalPagarAvia.innerText = `${res.totalPagarSegSocialAvia.toFixed(2)} €/mes`;
     if (preview.ssCuotaCompleta) preview.ssCuotaCompleta.innerText = `${res.cuotaCompletaSinDescuento.toFixed(2)} €/mes (sense descompte)`;
     if (preview.ssDescuentoTotal) preview.ssDescuentoTotal.innerText = `-${res.totalDescuento.toFixed(2)} €/mes d'estalvi`;
     if (preview.ssBase) preview.ssBase.innerText = `${res.baseSS.toFixed(2)} €/mes`;
 
-    // Seguretat Social - Cuota Empleador (Àvia)
     if (preview.empCC_pagar) preview.empCC_pagar.innerText = `${res.empCC_pagar.toFixed(2)} €`;
     if (preview.empCC_brut) preview.empCC_brut.innerText = `${res.empCC_brut.toFixed(2)} €`;
     if (preview.empProf) preview.empProf.innerText = `${res.empProf_pagar.toFixed(2)} €`;
@@ -180,19 +181,16 @@ function updatePreview() {
     if (preview.totEmpBrut) preview.totEmpBrut.innerText = `${res.empTotalBrut.toFixed(2)} €`;
     if (preview.totEmpPagar) preview.totEmpPagar.innerText = `${res.totalEmpresari.toFixed(2)} €`;
 
-    // Seguretat Social - Cuota Treballador
     if (preview.trabCC) preview.trabCC.innerText = `${res.dedCC.toFixed(2)} €`;
     if (preview.trabDes) preview.trabDes.innerText = `${res.dedDes.toFixed(2)} €`;
     if (preview.trabMEI) preview.trabMEI.innerText = `${res.dedMEI.toFixed(2)} €`;
     if (preview.trabTotal) preview.trabTotal.innerText = `${res.totalDeducir.toFixed(2)} €`;
 
-    // Resum Cost Total Àvia
     if (preview.resumLiquid) preview.resumLiquid.innerText = `${res.liquido.toFixed(2)} €`;
     if (preview.resumRebutSS) preview.resumRebutSS.innerText = `${res.totalPagarSegSocialAvia.toFixed(2)} €`;
     if (preview.costTotalAvia) preview.costTotalAvia.innerText = `${res.costTotalRealAvia.toFixed(2)} €/mes`;
 }
 
-// Carregar dades inicials des del fitxer .env (a través de Vite import.meta.env)
 function carregarDadesEnv() {
     const envVars = {
         emp_nom: import.meta.env.VITE_EMP_NOM,
@@ -236,7 +234,6 @@ if (form) {
 
     updatePreview();
 
-    // Generació del PDF
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const formData = new FormData(form);
@@ -271,7 +268,6 @@ if (form) {
         doc.rect(margin, y, 92, 28);
         doc.rect(margin + 96, y, 92, 28);
 
-        // Quadre Empleador
         doc.text("EMPLEADOR/A", margin + 3, y + 4);
         doc.setFont("helvetica", "normal");
         doc.text(`Nom: ${dades.emp_nom}`, margin + 3, y + 9);
@@ -279,7 +275,6 @@ if (form) {
         doc.text(`Domicilio: ${dades.emp_dom}`, margin + 3, y + 17, { maxWidth: 88 });
         doc.text(`Población: ${dades.emp_pob} | CCC: ${dades.emp_ccc}`, margin + 3, y + 23);
 
-        // Quadre Treballador
         doc.setFont("helvetica", "bold");
         doc.text("TRABAJADOR/A", margin + 99, y + 4);
         doc.setFont("helvetica", "normal");
@@ -406,7 +401,6 @@ if (form) {
         doc.text("Total a cargo del empleador/a", margin, y);
         doc.text(`${res.totalEmpresari.toFixed(2)} €`, 195, y, { align: "right" });
 
-        // Caixa destacada: Liquidació mensual Seguretat Social (Càrrec al banc)
         y += 6;
         doc.setFillColor(241, 245, 249);
         doc.setDrawColor(203, 213, 225);
@@ -432,7 +426,8 @@ if (form) {
         doc.setFontSize(7.5);
         doc.setTextColor(100);
         doc.text("Firma del empleador/a", margin, y);
-        doc.text("Fecha: ____/____/2026", margin + 80, y);
+        const dataActual = obtenirDataActual();
+        doc.text(`Fecha: ${dataActual}`, margin + 80, y);
         doc.text("Recibí (Trabajador/a)", margin + 140, y);
 
         doc.save(`nomina_${dades.periodo.replace(/\s+/g, '_')}.pdf`);

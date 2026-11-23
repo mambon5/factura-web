@@ -38,7 +38,7 @@
                         </div>
                         <div class="input-group">
                             <label for="dies_hores">Jornada / Hores</label>
-                            <input type="text" id="dies_hores" name="dies_hores" value="25 horas semanales" required>
+                            <input type="text" id="dies_hores" name="dies_hores" value="100 horas / mes" required>
                         </div>
                     </div>
                 </div>
@@ -49,25 +49,25 @@
                     <div class="grid-2">
                         <div class="input-group">
                             <label for="emp_nom">Nom</label>
-                            <input type="text" id="emp_nom" name="emp_nom" value="Sofia" required>
+                            <input type="text" id="emp_nom" name="emp_nom" value="" required>
                         </div>
                         <div class="input-group">
                             <label for="emp_cif">NIF / CIF</label>
-                            <input type="text" id="emp_cif" name="emp_cif" value="123123">
+                            <input type="text" id="emp_cif" name="emp_cif" value="">
                         </div>
                     </div>
                     <div class="grid-3" style="margin-top: 15px;">
                         <div class="input-group">
                             <label for="emp_adreca">Domicilio</label>
-                            <input type="text" id="emp_adreca" name="emp_adreca" value="carrer santa madrona">
+                            <input type="text" id="emp_adreca" name="emp_adreca" value="">
                         </div>
                         <div class="input-group">
                             <label for="emp_poblacion">Población</label>
-                            <input type="text" id="emp_poblacion" name="emp_poblacion" value="08022">
+                            <input type="text" id="emp_poblacion" name="emp_poblacion" value="">
                         </div>
                         <div class="input-group">
                             <label for="emp_ccc">CCC</label>
-                            <input type="text" id="emp_ccc" name="emp_ccc" value="123123">
+                            <input type="text" id="emp_ccc" name="emp_ccc" value="">
                         </div>
                     </div>
                 </div>
@@ -78,17 +78,17 @@
                     <div class="grid-2">
                         <div class="input-group">
                             <label for="trab_nom">Nom</label>
-                            <input type="text" id="trab_nom" name="trab_nom" value="Sofia" required>
+                            <input type="text" id="trab_nom" name="trab_nom" value="Linda Sofia Rivera Reyes" required>
                         </div>
                         <div class="input-group">
                             <label for="trab_nif">NIF</label>
-                            <input type="text" id="trab_nif" name="trab_nif" value="123123123d">
+                            <input type="text" id="trab_nif" name="trab_nif" value="">
                         </div>
                     </div>
                     <div class="grid-3" style="margin-top: 15px;">
                         <div class="input-group">
                             <label for="trab_ss">N.º S. Social</label>
-                            <input type="text" id="trab_ss" name="trab_ss" value="1231231">
+                            <input type="text" id="trab_ss" name="trab_ss" value="">
                         </div>
                         <div class="input-group">
                             <label for="trab_cat">Categoría</label>
@@ -96,7 +96,7 @@
                         </div>
                         <div class="input-group">
                             <label for="trab_antiguedad">Antigüedad</label>
-                            <input type="text" id="trab_antiguedad" name="trab_antiguedad" value="12/09/2026">
+                            <input type="text" id="trab_antiguedad" name="trab_antiguedad" value="">
                         </div>
                     </div>
                 </div>
@@ -107,34 +107,32 @@
                     <div class="grid-2">
                         <div class="input-group">
                             <label for="salario_base">Salario base (€)</label>
-                            <input type="number" id="salario_base" name="salario_base" value="763.13" step="0.01"
+                            <input type="number" id="salario_base" name="salario_base" value="961.54" step="0.01"
                                 required>
+                            <small style="color: #64748b; font-size: 11px;">Amb 6,40% de deducció SS, 961,54 € bruts
+                                deixen ~900,00 € nets (962,56 € bruts deixen ~900,96 € nets)</small>
                         </div>
                         <div class="input-group">
                             <label for="complementos">Complementos salariales (€)</label>
-                            <!-- AFEGIT NAME -->
-                            <input type="number" id="complementos" name="complementos" value="12.00" step="0.01">
+                            <input type="number" id="complementos" name="complementos" value="0.00" step="0.01">
                         </div>
                     </div>
                     <div class="grid-2" style="margin-top: 15px;">
                         <div class="input-group">
                             <label for="paga_extra_junio">Paga extra de junio (prorrata) (€)</label>
-                            <!-- AFEGIT NAME -->
-                            <input type="number" id="paga_extra_junio" name="paga_extra_junio" value="63.59"
-                                step="0.01">
+                            <input type="number" id="paga_extra_junio" name="paga_extra_junio" value="0.00" step="0.01">
                         </div>
                         <div class="input-group">
                             <label for="paga_extra_dic">Paga extra de diciembre (prorrata) (€)</label>
-                            <!-- AFEGIT NAME -->
-                            <input type="number" id="paga_extra_dic" name="paga_extra_dic" value="63.59" step="0.01">
+                            <input type="number" id="paga_extra_dic" name="paga_extra_dic" value="0.00" step="0.01">
                         </div>
                     </div>
                     <div class="grid-2" style="margin-top: 15px;">
                         <div class="input-group">
                             <label for="base_ss">Base de cotització SS (€)</label>
-                            <input type="number" id="base_ss" name="base_ss" value="970.00" step="0.01">
-                            <small style="color: #64748b; font-size: 11px;">Tram de cotització aplicat (per defecte 970
-                                €/mes)</small>
+                            <input type="number" id="base_ss" name="base_ss" value="961.54" step="0.01">
+                            <small style="color: #64748b; font-size: 11px;">Si es deixa buit o a 0, el JS farà servir el
+                                total devengat</small>
                         </div>
                     </div>
                 </div>
@@ -226,21 +224,20 @@
                         </div>
                         <div style="text-align: right;">
                             <div style="font-size: 24px; font-weight: 800; color: #16a34a;"
-                                id="prev-ss-total-pagar-avia">278,12 €/mes</div>
+                                id="prev-ss-total-pagar-avia">0,00 €/mes</div>
                             <div style="font-size: 12px; color: #64748b; text-decoration: line-through;"
-                                id="prev-ss-cuota-completa">368,13 €/mes (sense descompte)</div>
+                                id="prev-ss-cuota-completa">0,00 €/mes (sense descompte)</div>
                         </div>
                     </div>
 
                     <div
                         style="margin-top: 10px; padding: 8px 12px; background-color: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 6px; font-size: 12px; color: #065f46;">
-                        <strong>Bonificacions aplicades:</strong> <span id="prev-ss-descuento-total">-90,01 €/mes
-                            d'estalvi</span>
-                        (20% de descompte a la quota comuna i 80% a desocupació i FOGASA).
+                        <strong>Bonificacions aplicades:</strong> <span id="prev-ss-descuento-total">0,00 €/mes</span>
+                        (revisa amb la resolució de la TGSS les bonificacions aplicables al cas).
                     </div>
 
                     <p style="margin-top: 10px; font-size: 12px; color: #64748b;">
-                        Aquesta quota correspon a una base de cotització de: <strong id="prev-ss-base">970,00
+                        Aquesta quota correspon a una base de cotització de: <strong id="prev-ss-base">0,00
                             €/mes</strong>
                     </p>
 
@@ -251,23 +248,23 @@
                             <div
                                 style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; margin-bottom: 10px;">
                                 <strong style="color: #1e293b; font-size: 13px;">Cuota del empleador (Àvia)</strong>
-                                <span style="font-weight: 700; color: #2563eb;" id="prev-emp-tot-pagar">216,03 €</span>
+                                <span style="font-weight: 700; color: #2563eb;" id="prev-emp-tot-pagar">0,00 €</span>
                             </div>
 
                             <div style="margin-bottom: 8px;">
                                 <div style="display: flex; justify-content: space-between;">
                                     <span>Contingencias comunes</span>
-                                    <strong id="prev-emp-cc-pagar">183,14 €</strong>
+                                    <strong id="prev-emp-cc-pagar">0,00 €</strong>
                                 </div>
                                 <small style="color: #64748b; font-size: 11px; display: block;">Enfermedad, accidente no
-                                    laboral, jubilación, etc. (brut: <span id="prev-emp-cc-brut">228,92
+                                    laboral, jubilación, etc. (brut: <span id="prev-emp-cc-brut">0,00
                                         €</span>)</small>
                             </div>
 
                             <div style="margin-bottom: 8px;">
                                 <div style="display: flex; justify-content: space-between;">
                                     <span>Contingencias profesionales</span>
-                                    <strong id="prev-emp-prof">14,55 €</strong>
+                                    <strong id="prev-emp-prof">0,00 €</strong>
                                 </div>
                                 <small style="color: #64748b; font-size: 11px; display: block;">Accidentes y
                                     enfermedades laborales.</small>
@@ -276,16 +273,16 @@
                             <div style="margin-bottom: 8px;">
                                 <div style="display: flex; justify-content: space-between;">
                                     <span>Desempleo</span>
-                                    <strong id="prev-emp-des-pagar">10,67 €</strong>
+                                    <strong id="prev-emp-des-pagar">0,00 €</strong>
                                 </div>
-                                <small style="color: #64748b; font-size: 11px; display: block;">Amb 80% descompte (brut:
-                                    <span id="prev-emp-des-brut">53,35 €</span>)</small>
+                                <small style="color: #64748b; font-size: 11px; display: block;">(brut:
+                                    <span id="prev-emp-des-brut">0,00 €</span>)</small>
                             </div>
 
                             <div style="margin-bottom: 8px;">
                                 <div style="display: flex; justify-content: space-between;">
                                     <span>Mecanismo de Equidad (MEI)</span>
-                                    <strong id="prev-emp-mei">7,28 €</strong>
+                                    <strong id="prev-emp-mei">0,00 €</strong>
                                 </div>
                                 <small style="color: #64748b; font-size: 11px; display: block;">Aportació solidària
                                     intergeneracional (0,75%)</small>
@@ -294,16 +291,16 @@
                             <div style="margin-bottom: 8px;">
                                 <div style="display: flex; justify-content: space-between;">
                                     <span>Fondo de Garantía Salarial</span>
-                                    <strong id="prev-emp-fogasa-pagar">0,39 €</strong>
+                                    <strong id="prev-emp-fogasa-pagar">0,00 €</strong>
                                 </div>
-                                <small style="color: #64748b; font-size: 11px; display: block;">Amb 80% descompte (brut:
-                                    <span id="prev-emp-fogasa-brut">1,94 €</span>)</small>
+                                <small style="color: #64748b; font-size: 11px; display: block;">(brut:
+                                    <span id="prev-emp-fogasa-brut">0,00 €</span>)</small>
                             </div>
 
                             <div
                                 style="border-top: 1px dashed #cbd5e1; margin-top: 8px; padding-top: 6px; display: flex; justify-content: space-between; font-size: 12px; color: #64748b;">
                                 <span>Total cuota empleador sense bonif.:</span>
-                                <span id="prev-emp-tot-brut">306,04 €</span>
+                                <span id="prev-emp-tot-brut">0,00 €</span>
                             </div>
                         </div>
 
@@ -312,13 +309,13 @@
                             <div
                                 style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; margin-bottom: 10px;">
                                 <strong style="color: #1e293b; font-size: 13px;">Cuota del trabajador</strong>
-                                <span style="font-weight: 700; color: #dc2626;" id="prev-trab-tot">62,09 €</span>
+                                <span style="font-weight: 700; color: #dc2626;" id="prev-trab-tot">0,00 €</span>
                             </div>
 
                             <div style="margin-bottom: 8px;">
                                 <div style="display: flex; justify-content: space-between;">
                                     <span>Contingencias comunes</span>
-                                    <strong id="prev-trab-cc">45,59 €</strong>
+                                    <strong id="prev-trab-cc">0,00 €</strong>
                                 </div>
                                 <small style="color: #64748b; font-size: 11px; display: block;">Enfermedad, accidente no
                                     laboral, jubilación, etc. (4,70%)</small>
@@ -327,7 +324,7 @@
                             <div style="margin-bottom: 8px;">
                                 <div style="display: flex; justify-content: space-between;">
                                     <span>Desempleo</span>
-                                    <strong id="prev-trab-des">15,04 €</strong>
+                                    <strong id="prev-trab-des">0,00 €</strong>
                                 </div>
                                 <small style="color: #64748b; font-size: 11px; display: block;">Cotització per atur
                                     treballadora (1,55%)</small>
@@ -336,7 +333,7 @@
                             <div style="margin-bottom: 8px;">
                                 <div style="display: flex; justify-content: space-between;">
                                     <span>Mecanismo de Equidad (MEI)</span>
-                                    <strong id="prev-trab-mei">1,46 €</strong>
+                                    <strong id="prev-trab-mei">0,00 €</strong>
                                 </div>
                                 <small style="color: #64748b; font-size: 11px; display: block;">Aportació solidària
                                     intergeneracional (0,15%)</small>
@@ -344,9 +341,8 @@
 
                             <div
                                 style="margin-top: 25px; padding: 10px; background-color: #f1f5f9; border-radius: 4px; font-size: 11px; color: #475569;">
-                                ℹ️ Aquests <strong>62,09 €</strong> es retenen del salari brut de la treballadora i
-                                l'àvia els ingressa a la Seguretat Social dins del rebut unificat de <strong>278,12
-                                    €</strong>.
+                                ℹ️ Aquesta quota es reté del salari brut de la treballadora i s'ingressa a la Seguretat
+                                Social dins del rebut unificat.
                             </div>
                         </div>
                     </div>
@@ -359,12 +355,12 @@
                                 style="font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 600; display: block;">Despesa
                                 Mensual Total per a l'Àvia</span>
                             <span style="font-size: 13px; color: #cbd5e1;">Salari Líquid (<span
-                                    id="prev-resum-liquid">840,22 €</span>) + Rebut Seguretat Social (<span
-                                    id="prev-resum-rebut-ss">278,12 €</span>)</span>
+                                    id="prev-resum-liquid">0,00 €</span>) + Rebut Seguretat Social (<span
+                                    id="prev-resum-rebut-ss">0,00 €</span>)</span>
                         </div>
                         <div style="text-align: right;">
                             <span style="font-size: 20px; font-weight: 800; color: #38bdf8;"
-                                id="prev-cost-total-avia">1.118,34 €/mes</span>
+                                id="prev-cost-total-avia">0,00 €/mes</span>
                         </div>
                     </div>
                 </div>
